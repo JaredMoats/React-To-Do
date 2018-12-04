@@ -15,17 +15,28 @@ class App extends Component {
     };
   }
 
+  //updates the state of newTodoDescription to what the user typed in the form
+  //(stores what the user is typing into newTodoDescription)
   handleChange(e) {
     this.setState({ newTodoDescription: e.target.value })
   }
 
+  //When the submit button is clicked, adds the value the user entered
+  //(which is stored in newTodoDescription) to the list.
   handleSubmit(e) {
+    //prevents the page from reloading when submit is clicked
     e.preventDefault();
+    //return nothing if the user didn't type in anything
     if(!this.state.newTodoDescription) { return }
+    //stores the new todo description and value of isCompleted into the new variable newToDo
     const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
+    //updates the state of todos, adding the newTodo onto the end of the list,
+    //and resets the state of newTodoDescription to an empty string
     this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '' });
   }
 
+  //passed to the ToDo component as a prop.
+  //updates the checkbox when it is clicked by the user
   toggleComplete(index) {
     const todos = this.state.todos.slice();
     const todo = todos[index];
