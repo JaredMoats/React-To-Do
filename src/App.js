@@ -45,13 +45,16 @@ class App extends Component {
   }
 
   //filters a list without the "deleted" item, then sets the state to the new list
-  deleteTodo(index) {
-    let key = index;
-    const filteredTodos = this.state.todos.filter(index => index !== key);
-    console.log(key);
+  deleteTodo(todos, index) {
+    console.log("deleteTodo() was triggered");
+    console.log("Todos before filter: " + this.state.todos);
+    console.log("You are trying to delete item: " + this.state.todos[index]);
+    const filteredTodos = this.state.todos.filter((todoIndex) => index !== todoIndex);
     this.setState({
       todos: filteredTodos
     });
+
+    console.log("Todos after filter: " + this.state.todos);
   }
 
   render() {
