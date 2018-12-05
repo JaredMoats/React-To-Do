@@ -29,7 +29,7 @@ class App extends Component {
     //return nothing if the user didn't type in anything
     if(!this.state.newTodoDescription) { return }
     //stores the new todo description and value of isCompleted into the new variable newToDo
-    const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
+    const newTodo = { description: this.state.newTodoDescription, isCompleted: false, shouldDelete: false };
     //updates the state of todos, adding the newTodo onto the end of the list,
     //and resets the state of newTodoDescription to an empty string
     this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '' });
@@ -46,10 +46,12 @@ class App extends Component {
 
   //filters a list without the "deleted" item, then sets the state to the new list
   deleteTodo(index) {
-    const deleteTodo = this.state.todos.filter(index => {
-      return this.state.todos[index] !== index;
+    let key = index;
+    const filteredTodos = this.state.todos.filter(index => index !== key);
+    console.log(key);
+    this.setState({
+      todos: filteredTodos
     });
-    this.setState({ todos: deleteTodo });
   }
 
   render() {
@@ -67,7 +69,11 @@ class App extends Component {
           )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) } >
-          <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e) } />
+          <input
+          type="text"
+          value={ this.state.newTodoDescription }
+          onChange={ (e) => this.handleChange(e) }
+          />
           <input type="submit" />
         </form>
       </div>
